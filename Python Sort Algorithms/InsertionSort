@@ -1,0 +1,37 @@
+import time
+import tracemalloc
+import re
+def insertionSort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+
+def read_file(filename):
+    with open(filename, "r") as f:
+        data = f.read()
+
+    postsplit = re.split(r"[, \n\t\r]+", data.strip())
+
+    return [int(x) for x in postsplit if x != ""]
+
+
+
+# Driver code
+if __name__ == "__main__":
+    filename = "arrayhunthousand.txt"
+    arr = read_file(filename)
+    tracemalloc.start()
+    timeStart = time.perf_counter()
+    insertionSort(arr)
+    timeEnd = time.perf_counter()
+    memUsed = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+    timeTotal = timeEnd - timeStart
+    print(f"Execution Time: {timeTotal} seconds")
+    print(f"Memory Used: {memUsed} b")

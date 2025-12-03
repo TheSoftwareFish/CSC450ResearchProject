@@ -1,0 +1,30 @@
+import time
+import tracemalloc
+import re
+def standardSort(arr):
+    list.sort(arr)
+
+
+def read_file(filename):
+    with open(filename, "r") as f:
+        data = f.read()
+
+    postsplit = re.split(r"[, \n\t\r]+", data.strip())
+
+    return [int(x) for x in postsplit if x != ""]
+
+
+
+# Driver code
+if __name__ == "__main__":
+    filename = "arraytenmil.txt"
+    arr = read_file(filename)
+    tracemalloc.start()
+    timeStart = time.perf_counter()
+    standardSort(arr)
+    timeEnd = time.perf_counter()
+    memUsed = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+    timeTotal = timeEnd - timeStart
+    print(f"Execution Time: {timeTotal} seconds")
+    print(f"Memory Used: {memUsed} b")
